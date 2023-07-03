@@ -1,4 +1,4 @@
-# Setup the Seedcase Instruction
+# Setup the Seedcase Registry Instruction
 
 ## Download and install Docker
 
@@ -37,7 +37,7 @@ command line tool.
 ## Setup the environment file
 
 Create a copy of the `env_example` file, to fill in with your details,
-using this Terminal command, assuming starting directory is `seedcase`:
+using this Terminal command, assuming starting directory is `seedcase-registry`:
 
 ``` bash
 cp env_example .env.django
@@ -65,8 +65,8 @@ image to the local computer, and try to run it. Once done, it should
 print something like:
 
 ```         
-⠿ Container demo_version_containers-db-1          Started       0.3s
-⠿ Container seedcase_portal                         Started       0.5s
+⠿ Container registry_db                            Started       0.3s
+⠿ Container seedcase-registry                      Started       0.5s
 ```
 
 Which indicates that Docker is ready.
@@ -74,7 +74,7 @@ Which indicates that Docker is ready.
 ## Check the Web application
 
 Open an browser and type in the address <http://127.0.0.1:8080/>. You
-should be able to see the landing page of Seedcase Portal. You could try
+should be able to see the landing page of Seedcase Registry. You could try
 to access the admin part of the portal with address
 <http://127.0.0.1:8080/admin>, using the username and password you set
 up in the `.env.django` file. After you log in to the admin part, you
@@ -82,7 +82,7 @@ could try to add more data.
 
 ## Stop and run the docker containers.
 
-To stop the container, while in the main `seedcase/` folder, run:
+To stop the container, while in the main `seedcase-registry/` folder, run:
 
 ``` bash
 docker compose -f docker-compose.yml down
@@ -100,7 +100,7 @@ docker compose -f docker-compose.yml up -d
 ## Build and run tests
 
 To build, start and run all tests, run the command under the main
-`seedcase/` folder. Please utilize this script to ensure the successful
+`seedcase-registry/` folder. Please utilize this script to ensure the successful
 completion of all tests following any modifications made to the code.
 
 ``` bash
