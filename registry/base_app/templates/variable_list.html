@@ -1,0 +1,27 @@
+<h1>Available Variables</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Variable Name</th>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Owner</th>
+            <th>Collected Date/Time</th>
+            <th>Availability</th>
+            <th>Expiration Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for variable in variables %}
+        <tr>
+            <td>{{ variable.name }}</td>
+            <td>{{ variable.project.name }}</td>
+            <td>{{ variable.description }}</td>
+            <td>{{ variable.owner }}</td>
+            <td>{{ variable.collected_datetime }}</td>
+            <td>{{ variable.availability }}</td>
+            <td>{{ variable.expiration_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
