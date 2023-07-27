@@ -16,6 +16,6 @@ RUN apk add curl
 
 COPY . .
 
-WORKDIR /home/app/django
+WORKDIR /home/app/registry
 
-ENTRYPOINT ["/home/app/django/entrypoint.sh"]
+ENTRYPOINT ["/home/app/registry/entrypoint.sh"]
