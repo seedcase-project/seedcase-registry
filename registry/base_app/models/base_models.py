@@ -21,20 +21,20 @@ class BaseModel(models.Model):
     Defines an abstract model built off of Django's Model class that
     provides some common fields that are useful across the application.
     """
+
     objects = BaseManager()
 
     time_created = models.DateTimeField(auto_now_add=True)
     time_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.ForeignKey(
         User,
-        related_name='%(app_label)s_%(class)s_related',  # avoid some reverse lookup clashes
+        related_name="%(app_label)s_%(class)s_related",  # avoid some reverse lookup clashes
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
     )
 
     def save(self, *args, **kwargs):
-
         # Check the unique_together constraints with any case
         # need to do manually to enforce the ability to have any case
         try:
@@ -53,8 +53,8 @@ class BaseModel(models.Model):
             return
         try:
             result = type(self).objects.filter(**kwargs).exclude(id=self.id)
-            if (len(result) > 0):
-                raise IntegrityError('Entry already exists %s' % str(kwargs))
+            if len(result) > 0:
+                raise IntegrityError("Entry already exists %s" % str(kwargs))
         except self.DoesNotExist:
             pass
 

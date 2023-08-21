@@ -7,11 +7,13 @@ class Project(BaseModel):
     """
     Project model for basic project information
     """
+
     name = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField()
     project_pi = models.ForeignKey(User, on_delete=models.CASCADE)
-    project_members = models.ManyToManyField(User, blank=True,
-                                             related_name="project_members")
+    project_members = models.ManyToManyField(
+        User, blank=True, related_name="project_members"
+    )
 
     def __str__(self):
         return self.name
@@ -21,7 +23,7 @@ class Variable(BaseModel):
     """
     Variables information, every variable should belong to a project
     """
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
     name = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField()
     collected_datetime = models.DateTimeField(blank=False)
@@ -30,13 +32,3 @@ class Variable(BaseModel):
 
     def __str__(self):
         return self.name
-
-
-class Request(models.Model):
-    """
-    This model contains the variable requesting info
-    """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    selected_variables = models.ManyToManyField(Variable)
-    approved = models.BooleanField(default=False)
-    reviewers = models.ManyToManyField(User, related_name='reviewers')

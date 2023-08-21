@@ -6,38 +6,46 @@ class VariableAdmin(admin.ModelAdmin):
     """
     This admin function is for setup the list view for variables table
     """
+
     list_display = (
-        'name',
-        'project',
-        'description',
-        'collected_datetime',
-        'availability',
-        'expiration_date'
+        "name",
+        "description",
+        "collected_datetime",
+        "availability",
+        "expiration_date",
     )
-    list_filter = ('project',)
-    search_fields = ('name', 'project__name', 'description')
+    search_fields = ("name", "description")
+
+    def request_ids(self, obj):
+        return ", ".join([str(req) for req in obj.requests.all()])
+
+    request_ids.short_description = "Request IDs"
 
 
 class RequestAdmin(admin.ModelAdmin):
-    """
-    This admin function is for setup the view for the request table
-    """
-    list_display = (
-        'id', 'get_requested_variables', 'user', 'get_reviewers', 'approved'
-    )
-    list_filter = ('approved',)
+    list_display = ("request_id", "status", "username", "contact_email")
+    list_filter = ("status",)
 
-    def get_requested_variables(self, obj):
-        return ", ".join(
-            [variable.name for variable in obj.selected_variables.all()])
+    # pre-select the requested variables in the Django admin
+    def get_changeform_initial_data(self, request):
+        initial = super().get_changeform_initial_data(request)
+        if "_changelist_filters" in request.GET:
+            return initial
 
-    get_requested_variables.short_description = 'Requested Variables'
+        # Get the object ID from the URL
+        obj_id = request.resolver_match.args[0]
+        try:
+            obj = self.get_queryset(request).get(pk=obj_id)
+            initial["variables"] = obj.variables.all()
+        except Request.DoesNotExist:
+            pass
 
-    def get_reviewers(self, obj):
-        return ", ".join(
-            [reviewer.username for reviewer in obj.reviewers.all()])
+        return initial
 
-    get_reviewers.short_description = 'Reviewers'
+    def request_ids(self, obj):
+        return ", ".join([str(req) for req in obj.request_set.all()])
+
+    request_ids.short_description = "Request IDs"
 
 
 # Register the model into django admin

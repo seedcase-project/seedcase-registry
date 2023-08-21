@@ -16,15 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home, VariableList, ProjectList
+from .views import home, VariableList, ProjectList, create_request, all_variables
 
 
-# Setup the relative url path for the pages
+# Set up the relative url path for the pages
 urlpatterns = [
-    path('', home, name='home'),
-    path('admin/', admin.site.urls),
-    path('variables/', VariableList, name='variable-list'),
-    path('projects/', ProjectList.as_view(), name='project-list'),
+    path("", home, name="home"),
+    path("admin/", admin.site.urls),
+    path("variables/", VariableList, name="variable-list"),
+    path("all_variables/", all_variables, name="get_all_variables"),
+    path("projects/", ProjectList.as_view(), name="project-list"),
+    path("create_request/", create_request, name="create_request"),
 ]
 
 admin.site.index_title = "Seedcase Registry Administration"
