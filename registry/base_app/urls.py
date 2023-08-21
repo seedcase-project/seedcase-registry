@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home, VariableList, ProjectList, create_request,all_variables
+from .views import home, VariableList, ProjectList, create_request, all_variables
 
 
 # Set up the relative url path for the pages
