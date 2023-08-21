@@ -16,6 +16,6 @@ RUN apk add curl
 
 COPY . .
 
-WORKDIR /home/app/registry
-
-ENTRYPOINT ["/home/app/registry/entrypoint.sh"]
+COPY docker/django/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
