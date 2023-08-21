@@ -12,7 +12,7 @@ def home(request):
     """
     Render the home page
     """
-    return render(request, 'home.html')
+    return render(request, "home.html")
 
 
 def VariableList(request):
@@ -20,11 +20,11 @@ def VariableList(request):
     Create variable list for the table view for the html page
     """
     variables = Variable.objects.filter(availability=True)
-    context = {'variables': variables}
-    return render(request, 'variable_list.html', context)
+    context = {"variables": variables}
+    return render(request, "variable_list.html", context)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def all_variables(request):
     """
     API endpoint to get all variables
@@ -38,12 +38,13 @@ class ProjectList(ListView):
     """
     Create basic list view from the model to render tha html page
     """
+
     model = Project
-    template_name = 'project_list.html'
-    context_object_name = 'projects'
+    template_name = "project_list.html"
+    context_object_name = "projects"
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 def create_request(request):
     """
     API endpoint to create a new request and associated variables.
@@ -65,7 +66,7 @@ def create_request(request):
     }
     """
     payload = request.data
-    variables_ids = payload.pop('variables')
+    variables_ids = payload.pop("variables")
 
     try:
         request_obj = Request.objects.create(**payload)
@@ -73,13 +74,13 @@ def create_request(request):
         request_obj.variables.set(variables)
 
         response_data = {
-            'request_id': request_obj.request_id,
-            'status': request_obj.status,
-            'username': request_obj.username,
-            'contact_email': request_obj.contact_email,
-            'variables': variables_ids
+            "request_id": request_obj.request_id,
+            "status": request_obj.status,
+            "username": request_obj.username,
+            "contact_email": request_obj.contact_email,
+            "variables": variables_ids,
         }
 
         return Response(response_data, status=status.HTTP_201_CREATED)
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

@@ -4,21 +4,44 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('base_app', '0001_initial'),
+        ("base_app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Request',
+            name="Request",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('request_id', models.CharField(max_length=10, unique=True)),
-                ('status', models.CharField(choices=[('PENDING', 'Pending'), ('APPROVED', 'Approved'), ('DISAPPROVED', 'Disapproved')], default='PENDING', max_length=20)),
-                ('username', models.CharField(max_length=100)),
-                ('contact_email', models.EmailField(max_length=254)),
-                ('variables', models.ManyToManyField(related_name='requests', to='base_app.variable')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("request_id", models.CharField(max_length=10, unique=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("PENDING", "Pending"),
+                            ("APPROVED", "Approved"),
+                            ("DISAPPROVED", "Disapproved"),
+                        ],
+                        default="PENDING",
+                        max_length=20,
+                    ),
+                ),
+                ("username", models.CharField(max_length=100)),
+                ("contact_email", models.EmailField(max_length=254)),
+                (
+                    "variables",
+                    models.ManyToManyField(
+                        related_name="requests", to="base_app.variable"
+                    ),
+                ),
             ],
         ),
     ]
