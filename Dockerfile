@@ -16,6 +16,4 @@ RUN apk add curl
 
 COPY . .
 
-COPY docker/django/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/home/app/entrypoint.sh"]
