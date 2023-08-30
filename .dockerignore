@@ -1,0 +1,7 @@
+.env*
+env_example
+integration_build.sh
+justfile
+.editorconfig
+.gitignore
+venv
