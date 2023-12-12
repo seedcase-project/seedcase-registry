@@ -16,6 +16,4 @@ RUN apk add curl
 
 COPY . .
 
-WORKDIR /home/app/registry
-
-ENTRYPOINT ["/home/app/registry/entrypoint.sh"]
+ENTRYPOINT ["/home/app/entrypoint.sh"]
